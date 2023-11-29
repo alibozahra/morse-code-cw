@@ -49,3 +49,20 @@ def morse_code(phrase):
     # Return the encoded or decrypted phrase
     return encoded_phrase
 
+# Get the phrase to encrypt or decrypt from the user
+phrase = input("Enter the phrase to encrypt or decrypt: ")
+
+# Determine whether to encrypt or decrypt
+option = input("Encrypt (e) or decrypt (d): ")
+
+# Encrypt the phrase
+if option == "e":
+    encoded_phrase = morse_code(phrase)
+    print("Encrypted phrase:", encoded_phrase)
+elif option == "d":
+    # Decrypt the phrase
+    decoded_phrase = morse_code(phrase)
+    print("Decrypted phrase:", decoded_phrase)
+else:
+    # Invalid option
+    print("Invalid option. Please choose either e (encrypt) or d (decrypt).")
