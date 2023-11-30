@@ -1,53 +1,70 @@
-def morse_code(phrase):
-    # Define the Morse code dictionary
-    morse_code_dict = {
-        'a': '.-',
-        'b': '-...',
-        'c': '-.-.',
-        'd': '-..',
-        'e': '.',
-        'f': '..-.',
-        'g': '--.',
-        'h': '....',
-        'i': '..',
-        'j': '.---',
-        'k': '-.-',
-        'l': '.-..',
-        'm': '--',
-        'n': '-.',
-        'o': '---',
-        'p': '.--.',
-        'q': '--.-',
-        'r': '.-.',
-        's': '...',
-        't': '-',
-        'u': '..-',
-        'v': '...-',
-        'w': '.--',
-        'x': '-..-',
-        'y': '-.--',
-        'z': '--..',
-        ' ': ' '
-    }
+# Define the Morse code dictionary
+morse_code_dict = {
+    'a': '.-',
+    'b': '-...',
+    'c': '-.-.',
+    'd': '-..',
+    'e': '.',
+    'f': '..-.',
+    'g': '--.',
+    'h': '....',
+    'i': '..',
+    'j': '.---',
+    'k': '-.-',
+    'l': '.-..',
+    'm': '--',
+    'n': '-.',
+    'o': '---',
+    'p': '.--.',
+    'q': '--.-',
+    'r': '.-.',
+    's': '...',
+    't': '-',
+    'u': '..-',
+    'v': '...-',
+    'w': '.--',
+    'x': '-..-',
+    'y': '-.--',
+    'z': '--..',
+    ' ': ' '
+}
 
-    # Convert the phrase to lowercase and remove spaces
-    phrase = phrase.lower().replace(" ", "")
+# Define the reverse Morse code dictionary (English to Morse code)
+reverse_morse_code_dict = dict(zip(morse_code_dict.values(), morse_code_dict.keys()))
 
-    # Initialize the encrypted or decrypted phrase
+def morse_code(phrase, option):
+    # Initialize the encoded or decrypted phrase
     encoded_phrase = ""
 
-    # Iterate through each character in the phrase
-    for char in phrase:
-        # Check if the character exists in the Morse code dictionary
-        if char in morse_code_dict:
-            # Add the corresponding Morse code representation to the encoded phrase
-            encoded_phrase += morse_code_dict[char] + " "
-        else:
-            # If the character is not found, ignore it
-            pass
+    # Encrypt the phrase
+    if option == "e":
+         # Convert the phrase to lowercase and remove spaces
+        phrase = phrase.lower().replace(" ", "")
+        for char in phrase:
+            if char in morse_code_dict:
+                encoded_phrase += morse_code_dict[char] + " "
+            else:
+                print("Invalid character:", char , ",please use alphabets")
+                return
 
-    # Return the encoded or decrypted phrase
-    return encoded_phrase
+        # Return the encoded phrase
+        return encoded_phrase
+
+    # Decrypt the phrase
+    elif option == "d":
+        for morse_code in phrase.split(" "):
+            if morse_code in reverse_morse_code_dict:
+                encoded_phrase += reverse_morse_code_dict[morse_code]
+            else:
+                print("Invalid Morse code:", morse_code)
+                return
+
+        # Return the decrypted phrase
+        return encoded_phrase
+
+    # Invalid option
+    else:
+        print("Invalid option. Please choose either e (encrypt) or d (decrypt).")
 
 # Get the phrase to encrypt or decrypt from the user
 phrase = input("Enter the phrase to encrypt or decrypt: ")
@@ -55,14 +72,8 @@ phrase = input("Enter the phrase to encrypt or decrypt: ")
 # Determine whether to encrypt or decrypt
 option = input("Encrypt (e) or decrypt (d): ")
 
-# Encrypt the phrase
-if option == "e":
-    encoded_phrase = morse_code(phrase)
-    print("Encrypted phrase:", encoded_phrase)
-elif option == "d":
-    # Decrypt the phrase
-    decoded_phrase = morse_code(phrase)
-    print("Decrypted phrase:", decoded_phrase)
-else:
-    # Invalid option
-    print("Invalid option. Please choose either e (encrypt) or d (decrypt).")
+# Encrypt or decrypt the phrase
+encoded_phrase = morse_code(phrase, option)
+
+# Print the encoded or decrypted phrase
+print("Encrypted phrase:" if option == "e" else "Decrypted phrase:", encoded_phrase)
